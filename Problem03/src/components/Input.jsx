@@ -6,22 +6,19 @@ const Input = ({ onhandleChange }) => {
 
   const clickHandler = () => {
     // validation
-    // 1. name should not be empty
-    // 2. age is in between 1 to 100
-
     if (name.trim().length === 0) {
-      alert("name is required");
+      alert("Name is required");
       return;
     }
 
     if (name.trim().length > 20) {
-      alert("name should be less than 20");
+      alert("Name should be less than 20 characters");
       return;
     }
 
     const fixedAge = +age;
-    if (fixedAge > 0 || fixedAge > 100) {
-      alert("age should be 1 to 100");
+    if (fixedAge < 1 || fixedAge > 100) {
+      alert("Age should be between 1 and 100");
       return;
     }
 
@@ -33,33 +30,39 @@ const Input = ({ onhandleChange }) => {
   };
 
   return (
-    <div className="text-green-500 space-y-4 p-4 border rounded-md max-w-md mx-auto">
-      <label>Name</label>
-      <input
-        type="text"
-        placeholder="Please enter your name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="text-white-500 border px-3 py-2 w-full"
-      />
-
-      <label htmlFor="">Age</label>
-      <input
-        type="number"
-        placeholder="Input your age"
-        value={age}
-        onChange={(e) => setAge(e.target.value)}
-        className="text-white-500 border px-3 py-2 w-full"
-      />
-
-      <div className="flex gap-2">
-        <button
-          className="bg-blue-600 text-white px-10 py-2 rounded"
-          onClick={clickHandler}
-        >
-          Add
-        </button>
+    <div className="p-4 border border-gray-600 rounded-lg space-y-4">
+      <div>
+        <label className="block text-green-400 font-medium mb-1 text-left">
+          Name
+        </label>
+        <input
+          type="text"
+          placeholder="Please enter your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
       </div>
+
+      <div>
+        <label className="block text-green-400 font-medium mb-1 text-left">
+          Age
+        </label>
+        <input
+          type="number"
+          placeholder="Input your age"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+          className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+      </div>
+
+      <button
+        className=" px-12 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium transition"
+        onClick={clickHandler}
+      >
+        Add
+      </button>
     </div>
   );
 };

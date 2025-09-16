@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <main className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-      <article>
+      <article className="bg-gray-800 text-white rounded-2xl shadow-lg p-6 w-full max-w-md text-center space-y-4 border border-gray-700">
         <Input onhandleChange={handleChange} />
         <Message {...user} />
         <div className="w-full text-center">

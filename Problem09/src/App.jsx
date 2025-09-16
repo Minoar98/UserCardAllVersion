@@ -3,7 +3,8 @@ import Input from "./components/Input";
 import Message from "./components/Message";
 import ClearButton from "./components/ClearButton";
 import Checkbox from "./components/Checkbox";
-import data from "./data";
+import data from "../data";
+// import data from "./data";
 
 const App = () => {
   const [users, setUser] = useState(data);
@@ -48,8 +49,8 @@ const App = () => {
   };
 
   return (
-    <main className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-      <article className="bg-gray-800 text-white rounded-2xl shadow-lg p-6 w-full max-w-md text-center space-y-4 border border-gray-700">
+    <main className="min-h-screen w-full bg-gray-900 flex items-center justify-center p-10">
+      <article className="bg-gray-800 text-white rounded-2xl shadow-lg p-6 w-full max-w- text-center space-y-4 border border-gray-700">
         <Input onhandleChange={handleChange} />
         <Message
           users={filterusers}
@@ -57,10 +58,10 @@ const App = () => {
           onDeleteIcon={deleteIcon}
         />
         <div className="flex items-center justify-between mt-4">
-          <Checkbox
+          {/* <Checkbox
             isFavoritesShow={isFavoritesShow}
             onCheckboxhandler={checkboxhandler}
-          />
+          /> */}
           <ClearButton onclearHandler={clearHandler} />
         </div>
       </article>
