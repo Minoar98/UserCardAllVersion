@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Input = ({ onhandleChange, editUsersId }) => {
+const Input = ({ onhandleChange, editUsersId, editableUser }) => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
 
@@ -33,7 +33,7 @@ const Input = ({ onhandleChange, editUsersId }) => {
 
     // console.log("Add:", title);
 
-    onhandleChange(name, fixedAge);
+    onhandleChange(name, fixedAge, editUsersId);
 
     // clear the input
     setName("");
@@ -41,22 +41,25 @@ const Input = ({ onhandleChange, editUsersId }) => {
   };
 
   return (
-    <div className="p-4 border border-gray-600 rounded-lg space-y-4">
+    <div
+      className="p-4 border border-gray-600 rounded-lg space-y-4 
+                w-full max-w-4xl mx-auto"
+    >
       <div>
-        <label className="block text-green-400 font-medium mb-1 text-left">
+        <label className="block text-white-600 font-medium mb-1 text-left">
           Name
         </label>
         <input
           type="text"
           placeholder="Please enter your name"
-          value={name}
+          value={editUsersId ? editableUser?.name ?? name : name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-gray-600"
         />
       </div>
 
       <div>
-        <label className="block text-green-400 font-medium mb-1 text-left">
+        <label className="block text-white-600 font-medium mb-1 text-left">
           Age
         </label>
         <input
@@ -64,12 +67,12 @@ const Input = ({ onhandleChange, editUsersId }) => {
           placeholder="Input your age"
           value={age}
           onChange={(e) => setAge(e.target.value)}
-          className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-gray-600"
         />
       </div>
 
       <button
-        className=" px-12 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium transition"
+        className=" px-12 bg-pink-600 hover:bg-pink-700 text-white py-2 rounded-lg font-medium transition"
         onClick={clickHandler}
       >
         {editUsersId ? "Edit" : "Add"}

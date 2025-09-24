@@ -1,4 +1,4 @@
-import { Heart, SquarePen, Trash2 } from "lucide-react";
+import { FileHeart, SquarePen, Trash2 } from "lucide-react";
 const SingleMessage = ({
   id,
   name,
@@ -9,27 +9,35 @@ const SingleMessage = ({
 }) => {
   return (
     <article className="p-3 bg-gray-700 rounded-2xl shadow-lg hover:shadow-xl transition">
-      <p className="text-lg font-semibold text-blue-700">My name is {name}</p>
-      <p className="text-lg font-semibold  text-blue-700">Age is {age}</p>
-      <div className="flex justify-end p-1 cursor-pointer">
-        <button onClick={() => onClickHandler(id)}>
-          <Heart
-            size={25}
-            className={`text-red-600 hover:fill-red-600 ${
-              isFavorite ? "fill-red-600" : ""
-            }`}
-          />
-        </button>
-      </div>
-      <div className="flex justify-end p-1 cursor-pointer">
-        <button className="text-green-500" onClick={() => onDeleteIcon(id)}>
-          <Trash2 size={25} />
-        </button>
-      </div>
-      <div className="flex justify-end p-1 cursor-pointer">
-        <button className="text-red-600" onClick={() => onDeleteIcon(id)}>
-          <SquarePen />{" "}
-        </button>
+      <div className="flex justify-between items-start">
+        {/* Left side: texts with some left padding */}
+        <div className="space-y-2 pl-3">
+          <p className="text-lg  text-white-500">My name is {name}</p>
+          <p className="text-lg text-white-500">Age is {age}</p>
+        </div>
+
+        {/* Right side: icons aligned vertically */}
+        <div className="flex flex-col items-end gap-3">
+          <button onClick={() => onClickHandler(id)}>
+            <FileHeart
+              size={25}
+              className={`transition-colors duration-200 cursor-pointer 
+                   ${
+                     isFavorite
+                       ? "text-amber-500"
+                       : "text-gray-400 hover:text-amber-400"
+                   }`}
+            />
+          </button>
+
+          <button className="text-red-600" onClick={() => onDeleteIcon(id)}>
+            <Trash2 size={25} />
+          </button>
+
+          <button className="text-blue-500" onClick={() => onDeleteIcon(id)}>
+            <SquarePen size={25} />
+          </button>
+        </div>
       </div>
     </article>
   );
