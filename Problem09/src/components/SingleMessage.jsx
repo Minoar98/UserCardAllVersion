@@ -16,7 +16,7 @@ const SingleMessage = ({
           <p className="text-lg text-white-500">Age is {age}</p>
         </div>
 
-        {/* Right side: icons aligned vertically */}
+       
         <div className="flex flex-col items-end gap-3">
           <button onClick={() => onClickHandler(id)}>
             <FileHeart

@@ -10,16 +10,16 @@ import AllButtons from "./components/AllButtons";
 const App = () => {
   const [users, setUser] = useState([]);
   // const [isFavoritesShow, setIsFavoriteShow] = useState(false);
-  const [filter, setFilter] = useState("all");
+  const [isActive, setIsActive] = useState("all");
   // const [editUsersId, setEditUserId] = useState(null); // to active edit mode
   // const [title, setTitle] = useState(""); // which value I want to add or edit
 
   let filterusers = users;
-  if (filter === "favorite") {
+  if (isActive === "favorite") {
     filterusers = users.filter((user) => user.isFavorite);
-  } else if (filter === "edited") {
+  } else if (isActive === "edited") {
     filterusers = users.filter((user) => user.isEdited);
-  } else if (filter === "deleted") {
+  } else if (isActive === "deleted") {
     filterusers = users.filter((user) => user.isDeleted);
   }
 
@@ -83,7 +83,8 @@ const App = () => {
         <Input onhandleChange={handleChange} />
 
         <AllButtons
-          onSetFilter={setFilter}
+          isActive={isActive}
+          onSetIsActive={setIsActive}
           // onCheckboxhandler={checkboxhandler}
         />
         <Message

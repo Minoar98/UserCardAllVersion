@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Input = ({ onhandleChange, editUsersId, editableUser }) => {
+const Input = ({ onhandleChange, editUsersId }) => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
 
@@ -52,7 +52,7 @@ const Input = ({ onhandleChange, editUsersId, editableUser }) => {
         <input
           type="text"
           placeholder="Please enter your name"
-          value={editUsersId ? editableUser?.name ?? name : name}
+          value={name}
           onChange={(e) => setName(e.target.value)}
           className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-gray-600"
         />
