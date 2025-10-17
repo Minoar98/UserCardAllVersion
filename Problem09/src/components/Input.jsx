@@ -1,49 +1,45 @@
-import { useState } from "react";
-
-const Input = ({ onhandleChange, editUsersId }) => {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
+const Input = ({ handleChange, editUser, setEditUser }) => {
 
   const clickHandler = () => {
     console.log(" Ami click korci");
     // validation
-    if (name.trim().length === 0) {
+    if (editUser.name.trim().length === 0) {
       alert("Name is required");
       return;
     }
 
-    if (name.trim().length > 20) {
+    if (editUser.name.trim().length > 20) {
       alert("Name should be less than 20 characters");
       return;
     }
 
-    const fixedAge = +age;
+    const fixedAge = +editUser.age;
     if (fixedAge < 1 || fixedAge > 100) {
       alert("Age should be between 1 and 100");
       return;
     }
 
     // if (editUsersId) {
-    //   console.log("edit:", title);
+    //   console.log("edit:", name, fixedAge);
 
-    //   onEditItem(title);
+    //   onEditItem(name,fixedAge);
 
     //   return;
     // }
 
-    // console.log("Add:", title);
+    // console.log("Add:", name);
+    // console.log("Add:", fixedAge);
 
-    onhandleChange(name, fixedAge, editUsersId);
+    handleChange(editUser.name, fixedAge, editUser.id);
 
     // clear the input
-    setName("");
-    setAge("");
+    setEditUser({ id: null, name: "", age: "" });
   };
 
   return (
     <div
       className="p-4 border border-gray-600 rounded-lg space-y-4 
-                w-full max-w-4xl mx-auto"
+                w-96  mx-auto"
     >
       <div>
         <label className="block text-white-600 font-medium mb-1 text-left">
@@ -52,8 +48,10 @@ const Input = ({ onhandleChange, editUsersId }) => {
         <input
           type="text"
           placeholder="Please enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={editUser.name}
+          onChange={(e) =>
+            setEditUser((prev) => ({ ...prev, name: e.target.value }))
+          }
           className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-gray-600"
         />
       </div>
@@ -64,9 +62,11 @@ const Input = ({ onhandleChange, editUsersId }) => {
         </label>
         <input
           type="number"
-          placeholder="Input your age"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
+          placeholder="Please enter your age"
+          value={editUser.age}
+          onChange={(e) =>
+            setEditUser((prev) => ({ ...prev, age: e.target.value }))
+          }
           className="w-full px-3 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-gray-600"
         />
       </div>
@@ -75,7 +75,7 @@ const Input = ({ onhandleChange, editUsersId }) => {
         className=" px-12 bg-pink-600 hover:bg-pink-700 text-white py-2 rounded-lg font-medium transition"
         onClick={clickHandler}
       >
-        {editUsersId ? "Edit" : "Add"}
+        {editUser.id ? "Edit" : "Add"}
       </button>
     </div>
   );

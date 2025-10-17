@@ -2,17 +2,17 @@ import { useState } from "react";
 import Input from "./components/Input";
 import Message from "./components/Message";
 import ClearButton from "./components/ClearButton";
-
-// import data from "../data";
 import AllButtons from "./components/AllButtons";
-// import data from "./data";
 
 const App = () => {
   const [users, setUser] = useState([]);
   // const [isFavoritesShow, setIsFavoriteShow] = useState(false);
   const [isActive, setIsActive] = useState("all");
-  // const [editUsersId, setEditUserId] = useState(null); // to active edit mode
-  // const [title, setTitle] = useState(""); // which value I want to add or edit
+  const [editUser, setEditUser] = useState({
+    id: null,
+    name: "",
+    age: "",
+  });
 
   let filterusers = users;
   if (isActive === "favorite") {
@@ -23,18 +23,39 @@ const App = () => {
     filterusers = users.filter((user) => user.isDeleted);
   }
 
-  const handleChange = (name, age) => {
-    setUser((prevState) => [
-      ...prevState,
-      {
-        id: Date.now().toString(),
-        name,
-        age,
-        isFavorite: false,
-        isEdited: false,
-        isDeleted: false,
-      },
-    ]); // Ager kajer sathe kisu add kora
+  const handleChange = (name, age, editid) => {
+    if (editid) {
+      setUser((prevState) =>
+        prevState.map((user) =>
+          user.id === editid ? { ...user, name, age, isEdited: true } : user
+        )
+      );
+      setEditUser({ id: null, name: "", age: "" });
+    } else {
+      setUser((prevState) => [
+        ...prevState,
+        {
+          id: Date.now().toString(),
+          name,
+          age,
+          isFavorite: false,
+          isEdited: false,
+          isDeleted: false,
+        },
+      ]);
+    }
+  };
+
+  // Enable edit mode
+  const enableEditMode = (id) => {
+    const editableItem = users.find((user) => user.id === id);
+    if (!editableItem) return;
+
+    setEditUser({
+      id: editableItem.id,
+      name: editableItem.name,
+      age: editableItem.age,
+    });
   };
 
   const clickHandler = (id) => {
@@ -44,13 +65,13 @@ const App = () => {
       );
     });
   };
-  const editHandler = (id, newName) => {
-    setUser((prevState) =>
-      prevState.map((user) =>
-        user.id === id ? { ...user, name: newName, isEdited: true } : user
-      )
-    );
-  };
+  // const editHandler = (id, newName) => {
+  //   setUser((prevState) =>
+  //     prevState.map((user) =>
+  //       user.id === id ? { ...user, name: newName, isEdited: true } : user
+  //     )
+  //   );
+  // };
 
   const deleteIcon = (id) => {
     setUser((prevState) =>
@@ -60,12 +81,26 @@ const App = () => {
     );
   };
 
+  // const deleteIcon = (id) => {
+  //   setUser((prevState) => prevState.filter((user) => user.id !== id));
+  // };
+
   // const checkboxhandler = () => {
   //   setIsFavoriteShow((prevState) => !prevState);
   // };
 
-  // 1. search to the main state by id
-  // const editableItem = users.find((user) => user.id === id);
+  // const enableEditMode = (id) => {
+  //   console.log("edit mode on: ", { id });
+
+  //   // 1. search to the main state by id
+  //   const editableItem = users.find((user) => user.id === id);
+
+  //   // 3. update the title accordingly
+  //   setTitle(editableItem.title);
+
+  //   // 4. update the edit item id accordingly as well to detect that it's a edit mode
+  //   setEditUserId(id);
+  // };
 
   const clearHandler = () => {
     console.log("Clear All");
@@ -80,7 +115,11 @@ const App = () => {
                 bg-gray-800 text-white rounded-2xl shadow-lg 
                 p-6 text-center space-y-4 border border-gray-700"
       >
-        <Input onhandleChange={handleChange} />
+        <Input
+          handleChange={handleChange}
+          editUser={editUser}
+          setEditUser={setEditUser}
+        />
 
         <AllButtons
           isActive={isActive}
@@ -91,14 +130,12 @@ const App = () => {
           users={filterusers}
           onClickHandler={clickHandler}
           onDeleteIcon={deleteIcon}
-          onEditHandler={editHandler}
+          onEnableEditMode={enableEditMode}
+          isActive={isActive}
+       
         />
-        <div className="flex items-center justify-between mt-4">
-          {/* <Checkbox
-            isFavoritesShow={isFavoritesShow}
-            onCheckboxhandler={checkboxhandler}
-          /> */}
-          <ClearButton onclearHandler={clearHandler} />
+        <div className="flex items-center justify-center  mt-4">
+          {users.length > 0 && <ClearButton onclearHandler={clearHandler} />}
         </div>
       </article>
     </main>

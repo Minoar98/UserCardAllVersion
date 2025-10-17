@@ -4,36 +4,48 @@ const AllButtons = ({ isActive, onSetIsActive }) => {
     <div className="flex flex-wrap justify-center gap-2 mb-6">
       <button
         onClick={() => onSetIsActive("all")}
-        className={`${
-          isActive === "all" ? "bg-white  text-gray-800 " : "bg-pink-500"
-        }border border-pink-600  rounded px-4 py-1`}
+        className={`border border-pink-600 rounded px-4 py-1
+          ${
+            isActive === "all"
+              ? "bg-pink-500 text-white"
+              : "bg-white text-gray-800"
+          }`}
       >
         All
       </button>
 
       <button
         onClick={() => onSetIsActive("favorite")}
-        className={`${
-          isActive === "favorite" ? "bg-white  text-gray-800 " : "bg-pink-500"
-        }border border-pink-600  rounded px-4 py-1`}
+        className={`border border-pink-600 rounded px-4 py-1
+          ${
+            isActive === "favorite"
+              ? "bg-pink-500 text-white"
+              : "bg-white text-gray-800"
+          }`}
       >
         Favorite
       </button>
 
       <button
         onClick={() => onSetIsActive("edited")}
-        className={`${
-          isActive === "edited" ? "bg-white  text-gray-800 " : "bg-pink-500"
-        }border border-pink-600  rounded px-4 py-1`}
+        className={` border-pink-600 rounded px-4 py-1
+          ${
+            isActive === "edited"
+              ? "bg-pink-500 text-white"
+              : "bg-white text-gray-800"
+          }`}
       >
         Edited
       </button>
 
       <button
         onClick={() => onSetIsActive("deleted")}
-        className={`${
-          isActive === "deleted" ? "bg-white  text-gray-800 " : "bg-pink-500"
-        }border border-pink-600  rounded px-4 py-1`}
+        className={` border-pink-600 rounded px-4 py-1
+          ${
+            isActive === "deleted"
+              ? "bg-pink-500 text-white"
+              : "bg-white text-gray-800"
+          }`}
       >
         Deleted
       </button>
